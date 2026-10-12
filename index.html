@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ledger Agent – Mahak Mehra</title>
+<style>
+body{font:16px/1.6 system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 16px;color:#222}
+code,pre{background:#f3f3f3;border-radius:4px}pre{padding:12px;overflow:auto}code{padding:1px 4px}
+h1{margin-bottom:0}.sub{color:#666;margin-top:4px}
+@media(prefers-color-scheme:dark){body{background:#161616;color:#ddd}code,pre{background:#262626}.sub{color:#999}a{color:#7ab7ff}}
+</style>
+</head>
+<body>
+<h1>Ledger Agent</h1>
+<p class="sub">A plain-English question-answering service for the Acme Appliances order ledger.</p>
+
+<h2>What it does</h2>
+<p>Takes a question about revenue, refunds, products or customers and returns the answer as JSON. It was built for an API with no documentation, so the data's quirks had to be found and handled:</p>
+<ul>
+<li>Duplicate order ids: the row with the latest <code>updated_at</code> is current.</li>
+<li>Only <code>paid</code> orders count as revenue.</li>
+<li>USD, EUR and INR amounts are converted to USD using the live rates endpoint, rounded to the cent.</li>
+<li>Business dates use the Asia/Kolkata timezone.</li>
+</ul>
+
+<h2>Try it</h2>
+<pre>curl -X POST https://mahak-ledger-agent.vercel.app/ \
+  -H 'content-type: application/json' \
+  -d '{"question":"How much did North earn in April 2026, in US dollars?"}'
+# {"answer": 28854.62}</pre>
+
+<h2>Built with</h2>
+<p>Python standard library, deployed on Vercel.</p>
+
+<h2>Contact</h2>
+<p>Mahak Mehra &ndash; <!--email_off-->23f3001989@ds.study.iitm.ac.in<!--/email_off--></p>
+</body>
+</html>
